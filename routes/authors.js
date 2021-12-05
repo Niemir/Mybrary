@@ -96,7 +96,7 @@ router.delete('/:id', async (req, res) => {
     if (author == null) {
       res.redirect('/')
     } else {
-      res.redirect(`/authors/${author.id}`)
+      res.render(`authors/edit`, { author, errorMessage: 'Cannot delete user, becouse he still has books.' })
     }
   }
 })
