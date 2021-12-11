@@ -1,6 +1,7 @@
 const express = require('express')
 const Author = require('../models/author')
 const Book = require('../models/book')
+const { check, validationResult } = require('express-validator')
 const router = express.Router()
 // All authors route
 router.get('/', async (req, res) => {
@@ -27,20 +28,39 @@ router.get('/new', (req, res) => {
 })
 
 // Create author
-router.post('/', async (req, res) => {
-  const author = new Author({
-    name: req.body.name,
-  })
-  try {
-    const newAuthor = await author.save()
-    res.redirect(`authors/${newAuthor.id}`)
-  } catch {
-    res.render('authors/new', {
-      author,
-      errorMessage: 'Error creating author',
+router.post(
+  '/',
+  check('name')
+    .exists()
+    .isLength({ min: 3 })
+    .withMessage('Name must be at least 3 chars long')
+    .isLength({ max: 20 })
+    .withMessage('Name must be maximum 20 chars long'),
+  async (req, res) => {
+    const errors = validationResult(req)
+
+    const author = new Author({
+      name: req.body.name,
     })
-  }
-})
+
+    if (!errors.isEmpty()) {
+      return res.render('authors/new', {
+        author,
+        errorMessage: errors.errors[0].msg,
+      })
+    }
+
+    try {
+      const newAuthor = await author.save()
+      res.redirect(`authors/${newAuthor.id}`)
+    } catch {
+      res.render('authors/new', {
+        author,
+        errorMessage: 'Error creating author',
+      })
+    }
+  },
+)
 
 router.get('/:id', async (req, res) => {
   // let author
