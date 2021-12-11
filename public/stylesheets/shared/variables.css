@@ -1,4 +1,5 @@
 :root {
+  --font-family-sans-serif: 'Gotham Rounded', sans-serif;
   --color-base-hue: 200;
   --color-danger-hue-offset: 180;
   --color-danger-hue: calc(var(--color-base-hue) - var(--color-danger-hue-offset));
