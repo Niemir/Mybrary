@@ -1,9 +1,9 @@
-<h2> <%= author.name %> </h2>
+<h2 class="page-header"> <%= author.name %> </h2>
 <a href="/authors/<%= author.id %>/edit">Edit</a>
 <%- include ('../partials/deleteForm', {url: `/authors/${author.id }` }) %>
 
 <% if(booksByAuthor.length > 0)  {%>
-<h2>Books by Author</h2>
+<h2 class="page-header">Books by Author</h2>
 <% booksByAuthor.forEach(book => {%>
 <div><%= book.title%></div>
 <a href="books<%= book.id %> ">

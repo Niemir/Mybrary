@@ -24,18 +24,22 @@
       </script>
       <script defer
               src="/javascripts/fileUpload.js"> </script>
+      <link rel="stylesheet"
+            href="/stylesheets/main.css">
       <title>Mybrary</title>
 </head>
 
+<body>
+      <div class="container">
 
-<%- include('../partials/header.ejs')  %>
-<%- include('../partials/errorMessage.ejs')  %>
-<br>
+            <%- include('../partials/header.ejs')  %>
+            <div class="inner-container">
+                  <%- include('../partials/errorMessage.ejs')  %>
+                  <%- body %>
+            </div>
 
-<%- body %>
-
-<br>
-After
+            <br>
+      </div>
 </body>
 
 </html>
